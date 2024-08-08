@@ -7,6 +7,9 @@ import { Button } from "./src/components/default/button.tsx";
 import { Card } from "./src/components/apfel/card.tsx";
 import { Defaults } from "./src/components/apfel/theme.tsx";
 
+import Lights from "./env/Lights";
+import Ground from "./env/Ground";
+
 function RotatingCube() {
   const meshRef = useRef();
 
@@ -16,31 +19,10 @@ function RotatingCube() {
   });
 
   return (
-    <mesh ref={meshRef} position={[-2, 0, 0]}>
+    <mesh ref={meshRef} position={[-2, 1, 0]}>
       <boxGeometry args={[1, 1, 1]} />
       <meshStandardMaterial color="orange" />
     </mesh>
-  );
-}
-
-function UICard() {
-  return (
-    <View position={[2, 0, 0]} scale={0.5}>
-      <Card width={300} height={400}>
-        <Card.Body>
-          <Card.Title>Rotating Cube</Card.Title>
-          <p>
-            This is a 3D cube rotating in space. You can interact with it using
-            your mouse:
-          </p>
-          <List>
-            <List.Item>Left-click and drag to rotate the view</List.Item>
-            <List.Item>Right-click and drag to pan</List.Item>
-            <List.Item>Scroll to zoom in/out</List.Item>
-          </List>
-        </Card.Body>
-      </Card>
-    </View>
   );
 }
 
@@ -52,40 +34,89 @@ export function Scene() {
   return (
     <Canvas>
       <OrbitControls />
+      <Lights />
+      <Ground />
       <RotatingCube></RotatingCube>
-      <group position={[1, 0, 0]}>
-        <Root backgroundColor="grey" sizeX={2} sizeY={1} flexDirection="row">
+      <mesh position={[-5.8, 1.1, 0.3]}>
+        <boxGeometry args={[0.1, 0.25, 0.1]} />
+        <meshStandardMaterial color="orange" />
+      </mesh>
+      <mesh position={[-5.65, 1.13, 0.3]}>
+        <boxGeometry args={[0.1, 0.3, 0.1]} />
+        <meshStandardMaterial color="blue" />
+      </mesh>
+      <mesh position={[-5.5, 1.03, 0.3]}>
+        <boxGeometry args={[0.1, 0.1, 0.1]} />
+        <meshStandardMaterial color="green" />
+      </mesh>
+
+      <group position={[1, 1, 0]}>
+        <Root
+          backgroundColor="lightgreen"
+          sizeX={2}
+          sizeY={1}
+          flexDirection="row"
+        >
           <Container
             flexGrow={1}
             backgroundOpacity={0.5}
             hover={{ backgroundOpacity: 1 }}
           >
-            <Button borderRadius={0.1} onClick={handleClick}>
+            <Button
+              backgroundColor="red"
+              borderRadius={0.1}
+              onClick={handleClick}
+            >
               <Text>1</Text>
             </Button>
-            <Button>
+            <Button
+              backgroundColor="red"
+              borderRadius={0.1}
+              onClick={handleClick}
+            >
               <Text>2</Text>
             </Button>
-            <Button>
+            <Button
+              backgroundColor="red"
+              borderRadius={0.1}
+              onClick={handleClick}
+            >
               <Text>3</Text>
             </Button>
           </Container>
         </Root>
       </group>
-      <group position={[-5, 0, 0]}>
-        <Root backgroundColor="grey" sizeX={2} sizeY={1} flexDirection="row">
+      <group position={[-5, 1, 0]} rotation={[-1.57, 0, 0]}>
+        <Root
+          backgroundColor="lightgrey"
+          sizeX={2}
+          sizeY={1}
+          flexDirection="row"
+        >
           <Container
             flexGrow={1}
             backgroundOpacity={0.5}
             hover={{ backgroundOpacity: 1 }}
           >
-            <Button borderRadius={0.1} onClick={handleClick}>
+            <Button
+              backgroundColor="red"
+              borderRadius={0.1}
+              onClick={handleClick}
+            >
               <Text>1</Text>
             </Button>
-            <Button>
+            <Button
+              backgroundColor="red"
+              borderRadius={0.1}
+              onClick={handleClick}
+            >
               <Text>2</Text>
             </Button>
-            <Button>
+            <Button
+              backgroundColor="red"
+              borderRadius={0.1}
+              onClick={handleClick}
+            >
               <Text>3</Text>
             </Button>
           </Container>
