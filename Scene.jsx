@@ -6,9 +6,14 @@ import { Text, setPreferredColorScheme } from "@react-three/uikit";
 import { Button } from "./src/components/default/button.tsx";
 import { Card } from "./src/components/apfel/card.tsx";
 import { Defaults } from "./src/components/apfel/theme.tsx";
+import PanelExtruded from "./src//components/PanelExtruded";
+import { MeshStandardMaterial } from "three";
+import { extend } from "@react-three/fiber";
 
 import Lights from "./env/Lights";
 import Ground from "./env/Ground";
+
+extend({ MeshStandardMaterial });
 
 function RotatingCube() {
   const meshRef = useRef();
@@ -32,92 +37,58 @@ export function Scene() {
     console.log("Button clicked!");
   };
   return (
-    <Canvas>
+    <Canvas
+      shadows={true}
+      camera={{
+        fov: 50,
+        near: 0.1,
+        far: 2000,
+        position: [0, 2, 5],
+      }}
+      onCreated={({ gl, scene }) => {
+        // Enable sRGBEncoding
+        //gl.outputColorSpace = SRGBColorSpace;
+        // Alternatively, you can use LinearEncoding if sRGBEncoding is not desired
+        //gl.outputColorSpace = SRGBColorSpace;
+        //gl.toneMapping = THREE.ACESFilmicToneMapping;
+        //gl.toneMappingExposure = 0.5;
+      }}
+    >
       <OrbitControls />
       <Lights />
       <Ground />
-      <RotatingCube></RotatingCube>
-      <mesh position={[-5.8, 1.1, 0.3]}>
-        <boxGeometry args={[0.1, 0.25, 0.1]} />
-        <meshStandardMaterial color="orange" />
-      </mesh>
-      <mesh position={[-5.65, 1.13, 0.3]}>
-        <boxGeometry args={[0.1, 0.3, 0.1]} />
-        <meshStandardMaterial color="blue" />
-      </mesh>
-      <mesh position={[-5.5, 1.03, 0.3]}>
-        <boxGeometry args={[0.1, 0.1, 0.1]} />
-        <meshStandardMaterial color="green" />
-      </mesh>
+      <color attach="background" args={["#d9d9d9"]} />
 
-      <group position={[1, 1, 0]}>
-        <Root
-          backgroundColor="lightgreen"
-          sizeX={2}
-          sizeY={1}
-          flexDirection="row"
-        >
+      <PanelExtruded
+        position={[-0, 1, 0]}
+        scale={[2, 1.05, 0.15]}
+        color={"#a0a0a0"}
+      />
+
+      <group position={[0, 1.04, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+        <Root sizeX={2} sizeY={1} flexDirection="row" borderRadius={10}>
           <Container
             flexGrow={1}
-            backgroundOpacity={0.5}
-            hover={{ backgroundOpacity: 1 }}
+            backgroundOpacity={0.25}
+            backgroundColor="lightgreen"
+            backgroundRoughness={0.1}
+            backgroundMetalness={0.5}
           >
             <Button
-              backgroundColor="red"
-              borderRadius={0.1}
+              backgroundOpacity={0.25}
+              backgroundColor="lightblue"
+              borderRadius={2.5}
               onClick={handleClick}
             >
-              <Text>1</Text>
+              <Text>Open</Text>
             </Button>
             <Button
-              backgroundColor="red"
-              borderRadius={0.1}
+              backgroundOpacity={0.25}
+              backgroundColor="lightblue"
+              borderRadius={2.5}
               onClick={handleClick}
             >
-              <Text>2</Text>
-            </Button>
-            <Button
-              backgroundColor="red"
-              borderRadius={0.1}
-              onClick={handleClick}
-            >
-              <Text>3</Text>
-            </Button>
-          </Container>
-        </Root>
-      </group>
-      <group position={[-5, 1, 0]} rotation={[-1.57, 0, 0]}>
-        <Root
-          backgroundColor="lightgrey"
-          sizeX={2}
-          sizeY={1}
-          flexDirection="row"
-        >
-          <Container
-            flexGrow={1}
-            backgroundOpacity={0.5}
-            hover={{ backgroundOpacity: 1 }}
-          >
-            <Button
-              backgroundColor="red"
-              borderRadius={0.1}
-              onClick={handleClick}
-            >
-              <Text>1</Text>
-            </Button>
-            <Button
-              backgroundColor="red"
-              borderRadius={0.1}
-              onClick={handleClick}
-            >
-              <Text>2</Text>
-            </Button>
-            <Button
-              backgroundColor="red"
-              borderRadius={0.1}
-              onClick={handleClick}
-            >
-              <Text>3</Text>
+              <Text>Close</Text>
             </Button>
           </Container>
         </Root>

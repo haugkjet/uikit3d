@@ -17,7 +17,7 @@ export default function Ground() {
       >
         <planeGeometry attach="geometry" />
         <meshStandardMaterial
-          color={"lightblue"}
+          color={"#a9a9a9"}
           metalness={0.1}
           roughness={0.6}
         />
