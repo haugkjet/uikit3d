@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import { Fullscreen, Root, Container } from "@react-three/uikit";
 import { Text, setPreferredColorScheme } from "@react-three/uikit";
 import { Button } from "./src/components/default/button.tsx";
@@ -55,7 +55,8 @@ export function Scene() {
       }}
     >
       <OrbitControls />
-      <Lights />
+
+      <Environment preset="city"></Environment>
       <Ground />
       <color attach="background" args={["#d9d9d9"]} />
 
