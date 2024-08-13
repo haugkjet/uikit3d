@@ -9,6 +9,7 @@ import { Defaults } from "./src/components/apfel/theme.tsx";
 import PanelExtruded from "./src//components/PanelExtruded";
 import { MeshStandardMaterial } from "three";
 import { extend } from "@react-three/fiber";
+import { useControls } from 'leva'
 
 import Lights from "./env/Lights";
 import Ground from "./env/Ground";
@@ -36,6 +37,11 @@ export function Scene() {
   const handleClick = () => {
     console.log("Button clicked!");
   };
+
+  const { backgroundColor } = useControls({
+    backgroundColor: "#87CEEB", // Default to sky blue
+  });
+
   return (
     <Canvas
       shadows={true}
@@ -58,12 +64,16 @@ export function Scene() {
 
       <Environment preset="city"></Environment>
       <Ground />
-      <color attach="background" args={["#d9d9d9"]} />
-
+      <color attach="background" args={[backgroundColor]} />
       <PanelExtruded
         position={[-0, 1, 0]}
         scale={[2, 1.05, 0.15]}
-        color={"#a0a0a0"}
+        color={useControls({
+          panelColor: {
+            value: "#a0a0a0",
+            label: "Panel Color",
+          },
+        }).panelColor}
       />
 
       <group position={[0, 1.04, 0]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -79,6 +89,7 @@ export function Scene() {
               backgroundOpacity={0.25}
               backgroundColor="lightblue"
               borderRadius={2.5}
+              borderColor="black"
               onClick={handleClick}
             >
               <Text>Open</Text>
